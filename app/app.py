@@ -1,8 +1,9 @@
 from typing import Iterable
 from textual.app import App, ComposeResult, SystemCommand
 from textual.screen import Screen
-from textual.widgets import Footer, Header, Tabs
-from .dbtable import DBTable
+from textual.widgets import Footer, Header, TabbedContent, TabPane, Markdown
+from .dbtable import DBTable, DBColumn
+from .api import datastruct
 
 class GregPilotTUI(App):
     def get_system_commands(self, screen: Screen) -> Iterable[SystemCommand]:
@@ -11,9 +12,13 @@ class GregPilotTUI(App):
     def compose(self) -> ComposeResult:
         yield Header()
         yield Footer()
+        
+        with TabbedContent():
+            with TabPane("Overview", id="ov"):
+                pass
+            
+            tabs = ["ii", "fi", "it", "fl"]
 
-        columns = ["id", "rawdamage", "rawid", "name"]
-        url = "http://localhost:8000/items"
-        yield DBTable(columns=columns, url=url)
-        #yield Tabs("Overview", "Item Inventory", "Fluid Inventory", "Items", "Fluids")
-
+            for tab in tabs:
+                with TabPane(datastruct[tab]["tabname"], id=tab):
+                    yield DBTable(columns=datastruct[tab]["columns"], endpoint=datastruct[tab]["endpoint"])
