@@ -2,8 +2,7 @@ from typing import Iterable
 from textual.app import App, ComposeResult, SystemCommand
 from textual.screen import Screen
 from textual.widgets import Footer, Header, TabbedContent, TabPane, Markdown
-from .dbtable import DBTable, DBColumn
-from .api import datastruct
+from .invtable import DBColumn, ItemTable
 
 class GregPilotTUI(App):
     def get_system_commands(self, screen: Screen) -> Iterable[SystemCommand]:
@@ -14,11 +13,11 @@ class GregPilotTUI(App):
         yield Footer()
         
         with TabbedContent():
-            with TabPane("Overview", id="ov"):
+            with TabPane("Overview", id="overview"):
                 pass
-            
-            tabs = ["ii", "fi", "it", "fl"]
-
-            for tab in tabs:
-                with TabPane(datastruct[tab]["tabname"], id=tab):
-                    yield DBTable(columns=datastruct[tab]["columns"], endpoint=datastruct[tab]["endpoint"])
+            with TabPane("Items", id="items"):
+                yield ItemTable()
+            #with TabPane("Fluids", id="fluids"):
+            #    yield InventoryTable(endpoint="/api/fluids/inv", invcolumns=[DBColumn("name", "Fluid Name"), DBColumn("amount", "Amount (L)")])
+            #with TabPane("Essentia", id="essentia"):
+            #    yield InventoryTable(endpoint="/api/essentia/inv", invcolumns=[DBColumn("name", "Essentia"), DBColumn("amount", "Amount")])

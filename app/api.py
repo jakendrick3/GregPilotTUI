@@ -1,36 +1,29 @@
-from .dbtable import DBColumn
+from config import cfg
+import requests
 
-datastruct = {
-    'ii': {
-        'tabname': "Item Inventory",
-        'endpoint': "/items/log",
-        'columns': [
-            DBColumn("id", "Item ID"),
-            DBColumn("size", "Item Amount")
-        ]
-    },
-    'fi': {
-        'tabname': "Fluid Inventory",
-        'endpoint': "/fluids/log",
-        'columns': [
-            DBColumn("id", "Fluid ID"), 
-            DBColumn("amount", "Fluid Amount (L)")
-        ]
-    },
-    'it': {
-        'tabname': "Items",
-        'endpoint': "/items",
-        'columns': [
-            DBColumn("id", "Item ID"), 
-            DBColumn("name", "Item Name")
-        ]
-    },
-    'fl': {
-        'tabname': "Fluids",
-        'endpoint': "/fluids",
-        'columns': [
-            DBColumn("id", "Fluid ID"), 
-            DBColumn("name", "Fluid Name")
-        ]
-    }
-}
+class Craft():
+    def __init__(self, *, type: str, id: str, amount: int | None = None):
+        self.type = type
+        self.id = id
+        self.amount = amount
+    
+    def submit(self):
+        url = cfg.baseurl + "/api/requests/craft"
+        postobj = {
+            "type": self.type,
+            "id": self.id,
+            "amount": self.amount
+        }
+
+        send = [postobj]
+
+        print(postobj)
+
+        request = requests.post(url=url, json=send)
+        return request.json()
+
+def get(endpoint: str):
+    url = cfg.baseurl + endpoint
+    request = requests.get(url)
+
+    return request.json()
