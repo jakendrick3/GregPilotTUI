@@ -17,12 +17,11 @@ class Craft():
 
         send = [postobj]
 
-        #request = requests.post(url=url, json=send)
-        #result = request.json()
+        request = requests.post(url=url, json=send)
+        result = request.json()
 
-        result = []
         try:
-            if result["id"] == postobj["id"] and result["amount"] == postobj["amount"]:
+            if result[0]["id"] == postobj["id"] and result[0]["amount"] == postobj["amount"]:
                 return True
             else:
                 return False

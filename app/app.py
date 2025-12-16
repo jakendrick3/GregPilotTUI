@@ -2,7 +2,7 @@ from typing import Iterable
 from textual.app import App, ComposeResult, SystemCommand
 from textual.screen import Screen
 from textual.widgets import Footer, Header, TabbedContent, TabPane, Button
-from .invtable import DBColumn, ItemTable
+from .invtable import ItemTable, FluidTable, EssentiaTable
 
 class GregPilotTUI(App):
     CSS_PATH = "gp.tcss"
@@ -19,7 +19,7 @@ class GregPilotTUI(App):
                 yield Button.success()
             with TabPane("Items", id="items"):
                 yield ItemTable()
-            #with TabPane("Fluids", id="fluids"):
-            #    yield InventoryTable(endpoint="/api/fluids/inv", invcolumns=[DBColumn("name", "Fluid Name"), DBColumn("amount", "Amount (L)")])
-            #with TabPane("Essentia", id="essentia"):
-            #    yield InventoryTable(endpoint="/api/essentia/inv", invcolumns=[DBColumn("name", "Essentia"), DBColumn("amount", "Amount")])
+            with TabPane("Fluids", id="fluids"):
+                yield FluidTable()
+            with TabPane("Essentia", id="essentia"):
+                yield EssentiaTable()
