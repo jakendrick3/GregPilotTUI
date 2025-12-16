@@ -1,6 +1,7 @@
 from textual.screen import ModalScreen
 from textual.containers import Vertical
 from textual.widgets import Input, Button, Label
+from textual.events import Key, Click
 from .api import Craft
 
 class CraftScreen(ModalScreen):
@@ -16,6 +17,14 @@ class CraftScreen(ModalScreen):
     def on_button_pressed(self, event: Button.Pressed) -> None:
         if event.button.id == "successbutton" or event.button.id == "failbutton":
             self.dismiss(True)
+        
+    def on_key(self, event: Key):
+        if event.key == "escape":
+            self.dismiss()
+        
+    def on_click(self, event: Click):
+        if event.button == 3:
+            self.dismiss()
 
 class CraftSuccessButton(Button):
     def __init__(self):
