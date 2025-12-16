@@ -1,0 +1,16 @@
+CraftScreen {
+    align: center middle;
+    content-align: center middle;
+}
+
+CraftPopup {
+    width: 33%;
+}
+
+TabbedContent {
+    max-height: 100%;
+}
+
+.craftbutton {
+    width: 25%;
+}

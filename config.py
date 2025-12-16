@@ -1,3 +1,3 @@
 class cfg:
-    #baseurl = "https://gregpilot.stinkycentral.com"
-    baseurl = "http://localhost:8000"
+    baseurl = "https://gregpilot.stinkycentral.com"
+    #baseurl = "http://localhost:8000"

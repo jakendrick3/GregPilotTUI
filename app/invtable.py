@@ -1,10 +1,7 @@
-import requests
 from . import api
 from .api import Craft
-from .craftpopup import CraftPopup
+from .craftpopup import CraftScreen
 from textual.widgets import DataTable
-from config import cfg
-from rich.text import Text
 
 class DBColumn():
     def __init__(self, valuename: str, colname: str):
@@ -13,26 +10,37 @@ class DBColumn():
 
 class ItemTable(DataTable):
     def __init__(self):
-        super().__init__()
+        super().__init__(
+            cursor_type = "row",
+            classes = "inventorytable"
+        )
+
         self.invcolumns = [
             DBColumn("name", "Item Name"),
             DBColumn("size", "Amount in Inventory"),
             DBColumn("craftable", "Is Craftable")
         ]
+
         self.indexcol = "id"
-
-        self.data = api.get("/api/items/inv")
-
-        self.cursor_type = "row"
-        self.sortmethod = "name"
+        self.sortmethod = {
+            "columns": ("name",), 
+            "reverse": False
+        }
 
     BINDINGS = [
+        ("r", "refresh", "Refresh"),
         ("n", "sort_name", "Sort by Name"),
         ("a", "sort_size", "Sort by Amount"),
         ("c", "sort_craftable", "Sort by Craftable")
     ]
 
-    def on_mount(self):
+    async def on_mount(self):
+        await self.action_refresh()
+
+    async def action_refresh(self):
+        self.clear(columns=True)
+        self.data = await api.get("/api/items/inv")
+
         for col in self.invcolumns:
             self.add_column(col.colname, key=col.valuename)
         
@@ -44,31 +52,28 @@ class ItemTable(DataTable):
             
             self.add_row(*row, key=entry[self.indexcol])
         
-        self.sort("name")
+        self.sort(*self.sortmethod["columns"], reverse=self.sortmethod["reverse"])
     
     def action_sort_name(self):
-        if self.sortmethod == "name":
-            self.sort("name", reverse=True)
-            self.sortmethod = "namereverse"
-        else:
-            self.sort("name")
-            self.sortmethod = "name"
+        if self.sortmethod["columns"] == ("name",):
+            self.sortmethod["reverse"] = not self.sortmethod["reverse"]
+        
+        self.sortmethod["columns"] = ("name",)
+        self.sort(*self.sortmethod["columns"], reverse=self.sortmethod["reverse"])
     
     def action_sort_size(self):
-        if self.sortmethod == "size":
-            self.sort("size", "name", reverse=True)
-            self.sortmethod = "sizereverse"
-        else:
-            self.sort("size", "name")
-            self.sortmethod = "size"
+        if self.sortmethod["columns"] == ("size", "name"):
+            self.sortmethod["reverse"] = not self.sortmethod["reverse"]
+        
+        self.sortmethod["columns"] = ("size", "name")
+        self.sort(*self.sortmethod["columns"], reverse=self.sortmethod["reverse"])
     
     def action_sort_craftable(self):
-        if self.sortmethod == "craftable":
-            self.sort("craftable", "name", reverse=True)
-            self.sortmethod = "craftablereverse"
-        else:
-            self.sort("craftable", "name")
-            self.sortmethod = "craftable"
+        if self.sortmethod["columns"] == ("craftable", "name"):
+            self.sortmethod["reverse"] = not self.sortmethod["reverse"]
+        
+        self.sortmethod["columns"] = ("craftable", "name")
+        self.sort(*self.sortmethod["columns"], reverse=self.sortmethod["reverse"])
     
     def on_data_table_row_selected(self, event: DataTable.RowSelected):
         for row in self.data:
@@ -78,4 +83,4 @@ class ItemTable(DataTable):
 
         if selectedrow["craftable"] == True:
             craft = Craft(type="item", id=selectedrow["id"])
-            self.mount(CraftPopup(craft=craft))
+            self.app.push_screen(CraftScreen(craft=craft))

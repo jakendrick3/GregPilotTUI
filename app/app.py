@@ -1,10 +1,12 @@
 from typing import Iterable
 from textual.app import App, ComposeResult, SystemCommand
 from textual.screen import Screen
-from textual.widgets import Footer, Header, TabbedContent, TabPane, Markdown
+from textual.widgets import Footer, Header, TabbedContent, TabPane, Button
 from .invtable import DBColumn, ItemTable
 
 class GregPilotTUI(App):
+    CSS_PATH = "gp.tcss"
+
     def get_system_commands(self, screen: Screen) -> Iterable[SystemCommand]:
         yield from super().get_system_commands(screen)  
 
@@ -14,7 +16,7 @@ class GregPilotTUI(App):
         
         with TabbedContent():
             with TabPane("Overview", id="overview"):
-                pass
+                yield Button.success()
             with TabPane("Items", id="items"):
                 yield ItemTable()
             #with TabPane("Fluids", id="fluids"):

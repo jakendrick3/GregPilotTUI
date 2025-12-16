@@ -7,7 +7,7 @@ class Craft():
         self.id = id
         self.amount = amount
     
-    def submit(self):
+    def submit(self) -> bool:
         url = cfg.baseurl + "/api/requests/craft"
         postobj = {
             "type": self.type,
@@ -17,12 +17,19 @@ class Craft():
 
         send = [postobj]
 
-        print(postobj)
+        #request = requests.post(url=url, json=send)
+        #result = request.json()
 
-        request = requests.post(url=url, json=send)
-        return request.json()
+        result = []
+        try:
+            if result["id"] == postobj["id"] and result["amount"] == postobj["amount"]:
+                return True
+            else:
+                return False
+        except:
+            return False
 
-def get(endpoint: str):
+async def get(endpoint: str):
     url = cfg.baseurl + endpoint
     request = requests.get(url)
 
