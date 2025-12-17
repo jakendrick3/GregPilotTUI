@@ -1,6 +1,5 @@
 CraftScreen {
     align: center middle;
-    content-align: center middle;
 }
 
 CraftPopup {
@@ -13,4 +12,19 @@ TabbedContent {
 
 .craftbutton {
     width: 25%;
+}
+
+InitialConfigScreen {
+    align: center middle;
+    content-align: center middle;
+}
+
+#initscreen Label {
+    width: 50%;
+    text-align: center;
+    content-align: center middle;
+}
+
+InitPopup {
+    width: 50%;
 }
