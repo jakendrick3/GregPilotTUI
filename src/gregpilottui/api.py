@@ -1,10 +1,7 @@
 import requests
+from .config import get_config
 from platformdirs import user_config_dir
 from configparser import ConfigParser
-
-cfgfile = user_config_dir(appname = "GregPilotTUI") + "/" + "config.ini"
-config = ConfigParser()
-config.read(cfgfile)
 
 class Craft():
     def __init__(self, *, type: str, id: str, amount: int | None = None):
@@ -13,6 +10,7 @@ class Craft():
         self.amount = amount
     
     def submit(self) -> bool:
+        config = get_config()
         url = config["API"]["baseurl"] + "/api/requests/craft"
         postobj = {
             "type": self.type,
@@ -34,6 +32,7 @@ class Craft():
             return False
 
 async def get(endpoint: str):
+    config = get_config()
     url = config["API"]["baseurl"] + endpoint
     request = requests.get(url)
 

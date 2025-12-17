@@ -8,7 +8,8 @@ from .invtable import ItemTable, FluidTable, EssentiaTable
 from platformdirs import user_config_dir
 from configparser import ConfigParser
 from .initpopup import InitialConfigScreen
-from importlib import reload
+from .config import get_config, reload_config
+from pathlib import Path
 
 class PrimaryScreen(Screen):
     def compose(self) -> ComposeResult:
@@ -41,19 +42,18 @@ class GregPilotTUI(App):
         if not path.exists(cfgdir):
             makedirs(user_config_dir(appname = "GregPilotTUI"))
             
-        cfgfile = cfgdir + "/" + "config.ini"
-        config = ConfigParser()
-        config.read(cfgfile)
+        config = get_config()
         
         if config.sections() == []:
             baseurl = await self.push_screen_wait(InitialConfigScreen())
             config["DEFAULT"] = {}
             config["API"] = {}
             config["API"]["baseurl"] = baseurl
+            cfgfile = Path(user_config_dir("GregPilotTUI")) / "config.ini"
             
             with open(cfgfile, "w") as f:
                 config.write(f)
-                reload(.api)
+                reload_config()
         
         self.switch_mode("PrimaryMode")
 

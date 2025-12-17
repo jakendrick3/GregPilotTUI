@@ -63,7 +63,7 @@ Issues = "https://github.com/Alex Kendrick/gregpilottui/issues"
 Source = "https://github.com/Alex Kendrick/gregpilottui"
 
 [project.scripts]
-gregpilot = "gregpilottui.GregPilotTUI:gregpilot"
+gregpilot = "gregpilottui.gregpilottui:app"
 
 [tool.hatch.version]
 path = "src/gregpilottui/__about__.py"
