@@ -1,5 +1,5 @@
-from app import GregPilotTUI
+from .app import GregPilotTUI
 
 def gregpilot():
-    app = app.GregPilotTUI()
+    app = GregPilotTUI()
     app.run()

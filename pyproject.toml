@@ -62,6 +62,9 @@ Documentation = "https://github.com/Alex Kendrick/gregpilottui#readme"
 Issues = "https://github.com/Alex Kendrick/gregpilottui/issues"
 Source = "https://github.com/Alex Kendrick/gregpilottui"
 
+[project.scripts]
+gregpilot = "gregpilottui.GregPilotTUI:gregpilot"
+
 [tool.hatch.version]
 path = "src/gregpilottui/__about__.py"
 

@@ -8,6 +8,7 @@ from .invtable import ItemTable, FluidTable, EssentiaTable
 from platformdirs import user_config_dir
 from configparser import ConfigParser
 from .initpopup import InitialConfigScreen
+from importlib import reload
 
 class PrimaryScreen(Screen):
     def compose(self) -> ComposeResult:
@@ -52,6 +53,7 @@ class GregPilotTUI(App):
             
             with open(cfgfile, "w") as f:
                 config.write(f)
+                reload(.api)
         
         self.switch_mode("PrimaryMode")
 
