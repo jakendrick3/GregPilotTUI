@@ -4,10 +4,10 @@ from textual import work
 from textual.app import App, ComposeResult, SystemCommand
 from textual.screen import Screen
 from textual.widgets import Footer, Header, TabbedContent, TabPane, Button
-from gregpilottui.invtable import ItemTable, FluidTable, EssentiaTable
+from gregpilottui.tabs.invtable import ItemTable, FluidTable, EssentiaTable
 from platformdirs import user_config_dir
 from configparser import ConfigParser
-from gregpilottui.initpopup import InitialConfigScreen
+from gregpilottui.screens.initpopup import InitialConfigScreen
 from gregpilottui.config import get_config, reload_config
 from pathlib import Path
 
