@@ -1,5 +1,5 @@
 import requests
-from .config import get_config
+from gregpilottui.config import get_config
 from platformdirs import user_config_dir
 from configparser import ConfigParser
 

@@ -1,6 +1,6 @@
-from . import api
-from .api import Craft
-from .craftpopup import CraftScreen
+from gregpilottui import api
+from gregpilottui.api import Craft
+from gregpilottui.craftpopup import CraftScreen
 from textual.widgets import DataTable
 
 class DBColumn():

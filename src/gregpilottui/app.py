@@ -4,11 +4,11 @@ from textual import work
 from textual.app import App, ComposeResult, SystemCommand
 from textual.screen import Screen
 from textual.widgets import Footer, Header, TabbedContent, TabPane, Button
-from .invtable import ItemTable, FluidTable, EssentiaTable
+from gregpilottui.invtable import ItemTable, FluidTable, EssentiaTable
 from platformdirs import user_config_dir
 from configparser import ConfigParser
-from .initpopup import InitialConfigScreen
-from .config import get_config, reload_config
+from gregpilottui.initpopup import InitialConfigScreen
+from gregpilottui.config import get_config, reload_config
 from pathlib import Path
 
 class PrimaryScreen(Screen):

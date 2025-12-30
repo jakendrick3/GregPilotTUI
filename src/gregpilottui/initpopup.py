@@ -4,7 +4,7 @@ from textual.screen import ModalScreen
 from textual.containers import Center
 from textual.widgets import Input, Button, Label
 from textual.events import Key, Click
-from .api import Craft
+from gregpilottui.api import Craft
 
 class InitialConfigScreen(ModalScreen[str]):
     CSS_PATH = "gp.tcss"

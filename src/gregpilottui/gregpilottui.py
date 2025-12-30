@@ -1,4 +1,4 @@
-from .app import GregPilotTUI
+from gregpilottui.app import GregPilotTUI
 
 def app():
     gp = GregPilotTUI()
