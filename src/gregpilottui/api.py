@@ -31,9 +31,10 @@ class Craft():
         except:
             return False
 
-async def get(endpoint: str):
+async def get(endpoint: str, params: dict | None = None):
     config = get_config()
     url = config["API"]["baseurl"] + endpoint
-    request = requests.get(url)
+
+    request = requests.get(url, params=params)
 
     return request.json()

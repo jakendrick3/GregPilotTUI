@@ -50,7 +50,6 @@ InitPopup {
 }
 
 .maininfo {
-    border: round white;
     height: 100%;
     width: 100%;
 }
@@ -63,10 +62,6 @@ InitPopup {
     row-span: 2;
 }
 
-#requests {
-    row-span: 2;
-}
-
 ServerStatus {
     content-align: center middle;
     text-style: bold;
@@ -74,10 +69,38 @@ ServerStatus {
 
 .serverup {
     border: double green;
-    color: green
+    color: green;
 }
 
 .serverdown {
     border: double red;
-    color: red
+    color: red;
+}
+
+PowerStatus {
+    content-align: center middle;
+    align: center middle;
+    border: cyan round;
+    height: 100%;
+    width: 100%;
+    color: blue;
+}
+
+#powerbar {
+    content-align: center middle;
+    color: white;
+    width: 100%;
+    align: center middle;
+}
+
+#powerlabel {
+    text-align: center;
+    color: lime;
+    width: 100%;
+}
+
+CraftRequestsTable {
+    height: 100%;
+    row-span: 2;
+    border: white round;
 }

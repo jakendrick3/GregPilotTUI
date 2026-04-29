@@ -9,6 +9,8 @@ from textual.lazy import Lazy
 from platformdirs import user_config_dir
 from gregpilottui.widgets.invtable import ItemTable, FluidTable, EssentiaTable
 from gregpilottui.widgets.serverstatus import ServerStatus
+from gregpilottui.widgets.powerstatus import PowerStatus
+from gregpilottui.widgets.craftrequests import CraftRequestsTable
 from gregpilottui.screens.initpopup import InitialConfigScreen
 from gregpilottui.config import get_config, reload_config
 from pathlib import Path
@@ -23,9 +25,9 @@ class PrimaryScreen(Screen):
                 yield Container(
                     Placeholder("Rules", id="rules", classes="maininfo"),
                     ServerStatus(classes="maininfo"),
-                    Placeholder("Crafting Requests", id="requests", classes="maininfo"),
+                    CraftRequestsTable(),
                     Placeholder("Favorites", id="favorites", classes="maininfo"),
-                    Placeholder("Power", id="power", classes="maininfo"),
+                    PowerStatus(classes="maininfo"),
                     id="mainpage"
                 ) 
             with TabPane("Items", id="items"):
