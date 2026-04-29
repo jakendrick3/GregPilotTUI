@@ -1,5 +1,4 @@
 from textual.screen import ModalScreen
-from textual.containers import Vertical
 from textual.widgets import Input, Button, Label
 from textual.events import Key, Click
 from gregpilottui.api import Craft

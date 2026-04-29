@@ -3,10 +3,12 @@ from typing import Iterable
 from textual import work
 from textual.app import App, ComposeResult, SystemCommand
 from textual.screen import Screen
-from textual.widgets import Footer, Header, TabbedContent, TabPane, Button
-from gregpilottui.tabs.invtable import ItemTable, FluidTable, EssentiaTable
+from textual.widgets import Footer, Header, TabbedContent, TabPane, Placeholder
+from textual.containers import Container
+from textual.lazy import Lazy
 from platformdirs import user_config_dir
-from configparser import ConfigParser
+from gregpilottui.widgets.invtable import ItemTable, FluidTable, EssentiaTable
+from gregpilottui.widgets.serverstatus import ServerStatus
 from gregpilottui.screens.initpopup import InitialConfigScreen
 from gregpilottui.config import get_config, reload_config
 from pathlib import Path
@@ -18,13 +20,20 @@ class PrimaryScreen(Screen):
         
         with TabbedContent():
             with TabPane("Overview", id="overview"):
-                yield Button.success()
+                yield Container(
+                    Placeholder("Rules", id="rules", classes="maininfo"),
+                    ServerStatus(classes="maininfo"),
+                    Placeholder("Crafting Requests", id="requests", classes="maininfo"),
+                    Placeholder("Favorites", id="favorites", classes="maininfo"),
+                    Placeholder("Power", id="power", classes="maininfo"),
+                    id="mainpage"
+                ) 
             with TabPane("Items", id="items"):
-                yield ItemTable()
+                yield Lazy(ItemTable())
             with TabPane("Fluids", id="fluids"):
-                yield FluidTable()
+                yield Lazy(FluidTable())
             with TabPane("Essentia", id="essentia"):
-                yield EssentiaTable()
+                yield Lazy(EssentiaTable())
 
 class GregPilotTUI(App):
     CSS_PATH = "gp.tcss"
@@ -35,6 +44,8 @@ class GregPilotTUI(App):
     MODES = {
         "PrimaryMode": PrimaryScreen
     }
+
+    DEFAULT_MODE = "PrimaryMode"
 
     @work
     async def on_mount(self):
@@ -55,7 +66,7 @@ class GregPilotTUI(App):
                 config.write(f)
                 reload_config()
         
-        self.switch_mode("PrimaryMode")
+            self.switch_mode("PrimaryMode")
 
     def get_system_commands(self, screen: Screen) -> Iterable[SystemCommand]:
         yield from super().get_system_commands(screen)

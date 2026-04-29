@@ -2,12 +2,25 @@ CraftScreen {
     align: center middle;
 }
 
+PrimaryScreen {
+    height: 100%;
+}
+
 CraftPopup {
     width: 33%;
 }
 
 TabbedContent {
     max-height: 100%;
+    height: 100%;
+}
+
+ContentSwitcher {
+    height: 100%;
+}
+
+TabPane {
+    height: 100%;
 }
 
 .craftbutton {
@@ -27,4 +40,44 @@ InitialConfigScreen {
 
 InitPopup {
     width: 50%;
+}
+
+#mainpage {
+    layout: grid;
+    grid-size: 2 4;
+    grid-gutter: 1 2;
+    height: 100%;
+}
+
+.maininfo {
+    border: round white;
+    height: 100%;
+    width: 100%;
+}
+
+#rules {
+    row-span: 2;
+}
+
+#favorites {
+    row-span: 2;
+}
+
+#requests {
+    row-span: 2;
+}
+
+ServerStatus {
+    content-align: center middle;
+    text-style: bold;
+}
+
+.serverup {
+    border: double green;
+    color: green
+}
+
+.serverdown {
+    border: double red;
+    color: red
 }

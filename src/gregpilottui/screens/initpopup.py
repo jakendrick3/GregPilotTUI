@@ -7,8 +7,6 @@ from textual.events import Key, Click
 from gregpilottui.api import Craft
 
 class InitialConfigScreen(ModalScreen[str]):
-    CSS_PATH = "gp.tcss"
-
     def __init__(self):
         super().__init__()
         self.id = "initscreen"
