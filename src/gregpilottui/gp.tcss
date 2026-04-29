@@ -58,10 +58,6 @@ InitPopup {
     row-span: 2;
 }
 
-#favorites {
-    row-span: 2;
-}
-
 ServerStatus {
     content-align: center middle;
     text-style: bold;
@@ -102,5 +98,11 @@ PowerStatus {
 CraftRequestsTable {
     height: 100%;
     row-span: 2;
+    border: white round;
+}
+
+CPUTable {
+    row-span: 2;
+    height: 100%;
     border: white round;
 }

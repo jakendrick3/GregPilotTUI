@@ -14,6 +14,7 @@ class CraftRequestsTable(DataTable):
         )
 
         self.border_title = "Craft Requests"
+        self.zebra_stripes = True
 
         self.invcolumns = [
             DBColumn("status", "Status"),

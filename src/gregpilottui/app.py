@@ -11,6 +11,7 @@ from gregpilottui.widgets.invtable import ItemTable, FluidTable, EssentiaTable
 from gregpilottui.widgets.serverstatus import ServerStatus
 from gregpilottui.widgets.powerstatus import PowerStatus
 from gregpilottui.widgets.craftrequests import CraftRequestsTable
+from gregpilottui.widgets.cpustatus import CPUTable
 from gregpilottui.screens.initpopup import InitialConfigScreen
 from gregpilottui.config import get_config, reload_config
 from pathlib import Path
@@ -23,10 +24,10 @@ class PrimaryScreen(Screen):
         with TabbedContent():
             with TabPane("Overview", id="overview"):
                 yield Container(
-                    Placeholder("Rules", id="rules", classes="maininfo"),
+                    Placeholder("Favorites", id="rules", classes="maininfo"),
                     ServerStatus(classes="maininfo"),
                     CraftRequestsTable(),
-                    Placeholder("Favorites", id="favorites", classes="maininfo"),
+                    CPUTable(),
                     PowerStatus(classes="maininfo"),
                     id="mainpage"
                 ) 
